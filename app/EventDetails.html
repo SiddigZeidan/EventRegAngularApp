@@ -12,17 +12,18 @@
 		<div class="navbar">
 			<div class="navbar-inner">
 				<ul class="nav">
-					
+					<li><a href="NewEvent.html">Create Event</a></li>
 				</ul>
 			</div>
 		</div>
 		<div ng-controller = "EventController">
 		<div class="row">
 			<div class="span11">
-					 <h1 ng-bind-template = "{{event.name}} {{event.date}}"></h1>
+					 <h1>{{event.name | uppercase}}</h1>
 			</div>
 
 		</div>
+		
 		<div ng-bind-html="snippet">Some title</div>
 		<div class="row">
 			<div class="span3">
@@ -38,8 +39,14 @@
 		</div>
 			<hr>
 			<h3>Sessions</h3>
+			Order By:
+			<select ng-model="sortorder" class="input-small">
+			<option selected value ="name">Name</option>
+			<option value="-upVoteCount">Sort Order</option>
+				
+			</select>
 			<ul class="thumbnails">
-				<li ng-repeat = "session in event.sessions">
+				<li ng-repeat = "session in event.sessions | orderBy:sortorder | limitTo:2">
 				<div class="row session">
 				<div class="span0 well votingWidget">
 					<div class="votingButton" ng-click ="upVoteSession(session)">
